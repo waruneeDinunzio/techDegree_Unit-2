@@ -18,8 +18,8 @@ FSJS project 2 - List Filter and Pagination
 ***/
 const listItem = document.querySelectorAll('.student-item');
 const itemPerPage = 10;
-const NumberOfPage = Math.ceil(listItem.length/itemPerPage);
-console.log(listItem);
+const numberOfPage = Math.ceil(listItem.length/itemPerPage);
+//console.log(listItem);
 
 
 
@@ -47,12 +47,10 @@ for (let i = 0; i < listItem.length; i += 1) {
    } else {
       listItem[i].style.display = 'none';
    }
-
 }
-
 };
 
-showPage(listItem,2);
+showPage(listItem,1);
 
 /*** 
    Create the `appendPageLinks function` to generate, append, and add 
@@ -66,25 +64,35 @@ const appendPageLinks = (listItem) => {
    let ul = document.createElement('ul');
    pagination.appendChild(ul);
 
-   for ( let i = 0; i < NumberOfPage; i +=1) {
-   function createLiLink(i) {
+   for ( let i = 0; i < numberOfPage; i +=1) {
    let li = document.createElement('li');
-   ul.appendChild(li);
+   ul.appendChild(li)[i];
    let a = document.createElement('a');
-   a.className = "active";
+   a.className = "";
    a.href = "#";
    a.innerHTML= i+1;
-   li.appendChild(a);
+   li.appendChild(a)[i];
    }
-   //return createLiLink(i);
-   //};
-   return createLiLink(i);
-}
-   
+
 }
 appendPageLinks();
 
+const a = document.querySelectorAll('a');
+for (let i = 0; i < numberOfPage; i +=1) {
+  a[i].addEventListener('click', () => {
+    
+  showPage(listItem,[i+1]);
+  });
+}
 
-
-
+for ( i = 0; i < a.length; i += 1) {
+a[i].addEventListener ('click', (e) => {
+if (e.target.className === '') {
+  //a.remove('active');
+  e.target.className = 'active'
+ } else {
+   e.target.className = '';
+ }
+});
+}
 // Remember to delete the comments that came with this file, and replace them with your own code comments.
