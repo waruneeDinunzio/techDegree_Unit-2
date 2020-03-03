@@ -82,10 +82,11 @@ for (let i = 0; i < numberOfPage; i +=1) {
   a[i].addEventListener('click', () => {
     
   showPage(listItem,[i+1]);
+      a[i].className = 'active';
   });
 }
 
-for ( i = 0; i < a.length; i += 1) {
+/***for ( i = 0; i < a.length; i += 1) {
 a[i].addEventListener ('click', (e) => {
 if (e.target.className === '') {
   //a.remove('active');
@@ -94,5 +95,34 @@ if (e.target.className === '') {
    e.target.className = '';
  }
 });
-}
-// Remember to delete the comments that came with this file, and replace them with your own code comments.
+}***/
+// create search input and search button
+let searchBox = document.createElement('div');
+   searchDiv = document.querySelector('.page-header');
+   searchBox.className = 'student-search';
+   searchDiv.appendChild(searchBox);
+   searchInput = document.createElement('input');
+   searchInput.placeholder = "search for students...";
+   searchBox.appendChild(searchInput);
+   searchButton = document.createElement('button');
+   searchButton.innerHTML = "Search";
+   searchBox.appendChild(searchButton);
+
+//create search function
+const input = document.querySelector('input');
+      input.addEventListener('keyup', (e) => {
+         const inputText = e.target.value.toLowerCase();
+         Array.from(listItem).forEach(function(name) {
+            const studentName = name.firstElementChild.textContent;
+            if(studentName.toLowerCase().indexOf(inputText) !=-1){
+               name.style.display = 'block';
+            } else {
+               name.style.display = 'none';
+               alert('name is not found');
+               return inputText='';
+            }
+            
+         })
+      });
+
+      
