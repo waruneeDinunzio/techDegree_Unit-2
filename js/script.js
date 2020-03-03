@@ -118,7 +118,7 @@ const input = document.querySelector('input');
                name.style.display = 'block';
             } else {
                name.style.display = 'none';
-               alert('name is not found');
+               document.write=("no results have been found");
                return inputText='';
             }
             
