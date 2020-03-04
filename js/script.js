@@ -117,12 +117,19 @@ const input = document.querySelector('input');
             if(studentName.toLowerCase().indexOf(inputText) !=-1){
                name.style.display = 'block';
             } else {
-               name.style.display = 'none';
-               document.write=("no results have been found");
-               return inputText='';
+              name.style.display = 'none';
             }
-            
          })
-      });
-
+      })
+const searchStudent= document.querySelector('.student-search')
+      searchStudent.addEventListener('click', (e) => {
+         if (e.target.tagName === 'BUTTON') {
+         inputText = e.target.value.toLowerCase(); 
+         if (listItem !== inputText.textContent) {
+            //console.log('not found');
+            alert('no results have been found'); 
+         }
+         }
+         
+      })
       
