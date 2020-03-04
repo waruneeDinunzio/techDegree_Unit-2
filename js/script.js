@@ -26,16 +26,6 @@ const numberOfPage = Math.ceil(listItem.length/itemPerPage);
 /*** 
    Create the `showPage` function to hide all of the items in the 
    list except for the ten you want to show.
-
-   Pro Tips: 
-     - Keep in mind that with a list of 54 students, the last page 
-       will only display four.
-     - Remember that the first student has an index of 0.
-     - Remember that a function `parameter` goes in the parens when 
-       you initially define the function, and it acts as a variable 
-       or a placeholder to represent the actual function `argument` 
-       that will be passed into the parens later when you call or 
-       "invoke" the function 
 ***/
 function showPage(listItem,page) {
 const startIndex = (page*10)-10; 
@@ -86,16 +76,6 @@ for (let i = 0; i < numberOfPage; i +=1) {
   });
 }
 
-/***for ( i = 0; i < a.length; i += 1) {
-a[i].addEventListener ('click', (e) => {
-if (e.target.className === '') {
-  //a.remove('active');
-  e.target.className = 'active'
- } else {
-   e.target.className = '';
- }
-});
-}***/
 // create search input and search button
 let searchBox = document.createElement('div');
    searchDiv = document.querySelector('.page-header');
@@ -108,7 +88,7 @@ let searchBox = document.createElement('div');
    searchButton.innerHTML = "Search";
    searchBox.appendChild(searchButton);
 
-//create search function
+//create search useing keyup event listener
 const input = document.querySelector('input');
       input.addEventListener('keyup', (e) => {
          const inputText = e.target.value.toLowerCase();
@@ -121,6 +101,7 @@ const input = document.querySelector('input');
             }
          })
       })
+//create click event to show message not found
 const searchStudent= document.querySelector('.student-search')
       searchStudent.addEventListener('click', (e) => {
          if (e.target.tagName === 'BUTTON') {
