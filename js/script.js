@@ -7,8 +7,8 @@ const numberOfPage = Math.ceil(listItem.length/itemPerPage);
    list except for the ten you want to show.
 ***/
 const showPage = (listItem,page) => {
-    const startIndex = (page*10)-10; 
-    const endIndex = (page*10)-1;
+    const startIndex = (page*itemPerPage)-itemPerPage; 
+    const endIndex = (page*itemPerPage);
     for (let i = 0; i < listItem.length; i += 1) {
        if (i >= startIndex && i <= endIndex) {
        listItem[i].style.display = '';
@@ -81,31 +81,41 @@ const studentList = document.querySelectorAll('.student-list h3');
       //paginationDiv.remove();
    //}
    for (let i=0; i < studentList.length; i +=1) {
+      //names[i].style.display ='none';
       if (inputSearch.value.length !== 0 && studentList[i].textContent.toLowerCase().includes(inputSearch.value.toLowerCase())) {
       
       console.log(inputSearch.value);
       nameMatch.push(names[i]);
       showPage(listItem,0);
       appendPageLinks();
-      nameMatch[i].value.style = 'block';
+      //nameMatch[i].style = 'block';
       console.log(nameMatch[i]);
       }
    }
      if (nameMatch.length === 0) {
-        showPage(listItem,0);
+        showPage(listItem,1);
         appendPageLinks();
         const massage = document.createElement('p');
         massage.innerHTML = 'no results have been found';
         document.getElementsByClassName('page')[0].appendChild(massage);
+     } else {
+        for (let i=0; i < nameMatch.length; i +=1) {
+           nameMatch[i].value.style = 'block';
+        }
+        showPage(nameMatch, 1);
+        console.log(nameMatch);
      }
+}
    
-   }
 
-searchButton.addEventListener('click',() => {
+searchButton.addEventListener('click',(e) => {
+   event.preventDefault();
    search(searchInput,listItem);
 });
 
-searchInput.addEventListener('keyup',() => {
+searchInput.addEventListener('keyup',(e) => {
    search(searchInput,listItem);
 });
-       
+
+//showPage(listItem, 1);      
+//appendPageLinks(listItem);
