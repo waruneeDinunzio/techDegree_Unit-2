@@ -76,27 +76,36 @@ searchBox.appendChild(searchButton);
 const search = (inputSearch, names) => {
 const nameMatch = [];
 const studentList = document.querySelectorAll('.student-list h3');
-
-   for (let i=0; i < listItem.length; i +=1) {
+//let paginationDiv = document.querySelector('.page');
+   //if (paginationDiv) {
+      //paginationDiv.remove();
+   //}
+   for (let i=0; i < studentList.length; i +=1) {
       if (inputSearch.value.length !== 0 && studentList[i].textContent.toLowerCase().includes(inputSearch.value.toLowerCase())) {
+      
       console.log(inputSearch.value);
       nameMatch.push(names[i]);
-      nameMatch[i].style.display = 'block';
+      showPage(listItem,0);
+      appendPageLinks();
+      nameMatch[i].value.style = 'block';
       console.log(nameMatch[i]);
       }
    }
      if (nameMatch.length === 0) {
-        console.log('no results');
+        showPage(listItem,0);
+        appendPageLinks();
         const massage = document.createElement('p');
         massage.innerHTML = 'no results have been found';
         document.getElementsByClassName('page')[0].appendChild(massage);
      }
    
-}
+   }
 
 searchButton.addEventListener('click',() => {
    search(searchInput,listItem);
 });
 
-
-         
+searchInput.addEventListener('keyup',() => {
+   search(searchInput,listItem);
+});
+       
