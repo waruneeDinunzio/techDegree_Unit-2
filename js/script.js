@@ -1,3 +1,4 @@
+window.addEventListener('DOMContentLoaded', (event) => { 
 const listItem = document.querySelectorAll('.student-item');
 const itemPerPage = 10;
 //const numberOfPage = Math.ceil(listItem.length/itemPerPage);
@@ -7,7 +8,7 @@ const itemPerPage = 10;
 ***/
 const showPage = (studentList,page) => {
     const startIndex = (page*itemPerPage)-itemPerPage; 
-    const endIndex = (page*itemPerPage);
+    const endIndex = (page*itemPerPage)-1;
     const numberOfPage = Math.ceil(studentList.length/itemPerPage);
     for (let i = 0; i < studentList.length; i += 1) {
        if (i >= startIndex && i <= endIndex) {
@@ -27,7 +28,7 @@ const appendPageLinks = (studentList) => {
    let paginationDiv = document.querySelector('.pagination');
    if (paginationDiv) {
       paginationDiv.remove();
-   } else {
+   }
       //Create "pagination" div
    const numberOfPage = Math.ceil(studentList.length/itemPerPage);
    const pagination = document.createElement('div');
@@ -40,15 +41,17 @@ const appendPageLinks = (studentList) => {
        let li = document.createElement('li');
        ul.appendChild(li)[i];
        let a = document.createElement('a');
-       a.className = "active";
+       a.className = "";
        a.href = "#";
        a.innerHTML= i+1;
        li.appendChild(a)[i];
     }
-    
+    //console.log(ul.firstChild);
  
 //appendPageLinks();
-const a = document.querySelectorAll('a');
+let a = document.querySelectorAll('a');
+//console.log(a[0]);
+a[0].className = 'active';
 for (let i = 0; i < numberOfPage; i +=1) {
   a[i].addEventListener('click', (e) => {
       for (let j = 0; j< numberOfPage; j +=1){
@@ -57,7 +60,6 @@ for (let i = 0; i < numberOfPage; i +=1) {
       e.target.className = 'active';
       showPage(listItem,[i+1]);
    });
-}
 }
 }
 appendPageLinks(listItem);
@@ -79,25 +81,32 @@ const search = (inputSearch, names) => {
 //create empty array for name match
 const nameMatch = [];
 const studentList = document.querySelectorAll('.student-list h3');
+const preventDup = document.querySelectorAll('.preventDup');
+if (preventDup.length >0) {
+  preventDup[0].remove();
+}
    for (let i=0; i < studentList.length; i +=1) {
       names[i].style.display ='none';
-      if (inputSearch.value.length !== 0 && studentList[i].textContent.toLowerCase().includes(inputSearch.value.toLowerCase())) {
+      if (inputSearch.value.length !== 0 
+         && studentList[i].textContent.toLowerCase().includes(inputSearch.value.toLowerCase())) {
       nameMatch.push(names[i]);
       }
    }
      if (nameMatch.length === 0) {
-        const massage = document.createElement('p');
+      let paginationDiv = document.querySelector('.pagination');
+      if (paginationDiv) {
+         paginationDiv.remove();
+      }
+        let massage = document.createElement('h1');
         massage.innerHTML = 'no results have been found';
-        console.log(massage);
+        massage.className = 'preventDup';
         document.querySelector('.page').appendChild(massage);
-        showPage(nameMatch,0);
-        appendPageLinks(nameMatch);
-      } else {
+   
+   } else {
         showPage(nameMatch,1);
         appendPageLinks(nameMatch);
       }  
-}
-   
+} 
 searchButton.addEventListener('click',(e) => {
    event.preventDefault();
    search(searchInput,listItem);
@@ -106,4 +115,4 @@ searchButton.addEventListener('click',(e) => {
 searchInput.addEventListener('keyup',(e) => {
    search(searchInput,listItem);
 });
-
+});
