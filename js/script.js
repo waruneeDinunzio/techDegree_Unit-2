@@ -37,6 +37,10 @@ listItem to store studente list and number of item per page
       if (paginationDiv) {
       paginationDiv.remove();
       }
+      //const aActive = document.querySelectorAll('.active');
+      //if (aActive.length >0) {
+      //aActive[0].remove();
+      //}
    const numberOfPage = Math.ceil(studentList.length/itemPerPage);
 //Create pagination link with ul, li and a element with class name
    const pagination = document.createElement('div');
@@ -102,21 +106,28 @@ listItem to store studente list and number of item per page
             nameMatch.push(names[i]);
          }
       }
-      if (nameMatch.length === 0) {
-         let paginationDiv = document.querySelector('.pagination');
-         if (paginationDiv) {
+// when is empty string in search input, it shows 1st page
+      if (searchInput.value === "") { // diplayin init student list in case iput is empty string
+         appendPageLinks(listItem);
+         showPage(listItem, 1);
+         } else {
+            if (nameMatch.length === 0) {
+            console.log(preventDup);
+            let paginationDiv = document.querySelector('.pagination');
+            if (paginationDiv) {
             paginationDiv.remove();
-         }
+            }
 // showe massage when it's no match name
-         let massage = document.createElement('h1');
-         massage.innerHTML = 'No results have been found, Plase try again';
-         massage.className = 'preventDup';
-         document.querySelector('.page').appendChild(massage);
-         
+            let massage = document.createElement('h1');
+            massage.innerHTML = 'No results have been found, Plase try again';
+            massage.className = 'preventDup';
+            document.querySelector('.page').appendChild(massage);
+            showPage(nameMatch,1);
       } else {
          showPage(nameMatch,1);
          appendPageLinks(nameMatch);
-      }  
+      } 
+      } 
    } 
    searchButton.addEventListener('click',(e) => {
    search(searchInput,listItem);
