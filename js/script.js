@@ -69,7 +69,7 @@ listItem to store studente list and number of item per page
                a[j].className = '';
             }
             e.target.className = 'active';
-            showPage(listItem,[i+1]);
+            showPage(studentList,[i+1]);
          });
       }
    }
